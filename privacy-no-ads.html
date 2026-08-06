@@ -38,16 +38,16 @@
   }
   .topbar-inner{
     max-width:840px;margin:0 auto;padding:12px 20px;
-    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    display:flex;flex-direction:column;gap:10px;
   }
   .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--ink);}
-  .brand .dot{
-    width:10px;height:10px;border-radius:50%;
-    background:linear-gradient(135deg,var(--accent),var(--accent-dark));
-    flex:0 0 auto;
+  .brand img{
+    width:26px;height:26px;border-radius:8px;flex:0 0 auto;
+    display:block;
   }
   .langswitch{
-    display:flex;flex-wrap:wrap;background:#EFEAE3;border-radius:999px;padding:3px;gap:2px;
+    display:flex;flex-wrap:wrap;background:#EFEAE3;border-radius:999px;
+    padding:3px;gap:2px;align-self:flex-start;
   }
   .langswitch button{
     border:none;background:transparent;padding:6px 14px;border-radius:999px;
@@ -121,17 +121,16 @@
     padding:20px 20px 40px;
   }
 
-  [data-lang]{display:none;}
-  body:not(.lang-vi):not(.lang-zh):not(.lang-ko):not(.lang-ja) [data-lang="en"]{display:block;}
-  body.lang-vi [data-lang="vi"]{display:block;}
-  body.lang-zh [data-lang="zh"]{display:block;}
-  body.lang-ko [data-lang="ko"]{display:block;}
-  body.lang-ja [data-lang="ja"]{display:block;}
-  body:not(.lang-vi):not(.lang-zh):not(.lang-ko):not(.lang-ja) span[data-lang="en"]{display:inline;}
-  body.lang-vi span[data-lang="vi"]{display:inline;}
-  body.lang-zh span[data-lang="zh"]{display:inline;}
-  body.lang-ko span[data-lang="ko"]{display:inline;}
-  body.lang-ja span[data-lang="ja"]{display:inline;}
+  /* Ẩn/hiện theo ngôn ngữ - CHỈ 1 quy tắc DUY NHẤT, không if/else, không
+     phân biệt có JS hay không:
+     - Phần tử KHÔNG có `.active-lang` -> ẩn (selector `:not()` khiến quy
+       tắc TỰ ĐỘNG KHÔNG KHỚP với phần tử ĐANG active - không phải "thắng"
+       nhờ độ ưu tiên CSS, nên không còn ganh đua với `.callout`/`h2`/
+       `.updated`... của chính element đó nữa).
+     - EN được gắn sẵn `.active-lang` NGAY TRONG HTML (không cần JS) -> mặc
+       định hiện đúng tiếng Anh kể cả khi JS tắt/lỗi, không thiếu/thừa nội
+       dung. */
+  .ml-el:not(.active-lang){display:none !important;}
 
   @media (max-width:520px){
     header.hero{padding:40px 16px 24px;}
@@ -145,7 +144,7 @@
   <div class="topbar">
     <div class="topbar-inner">
       <div class="brand">
-        <span class="dot"></span>
+        <img src="./assest/icons/app_icon.webp" alt="Smart Money Scanner" onerror="this.style.display='none'">
         <span>Smart Money Scanner</span>
       </div>
       <div class="langswitch" role="tablist" aria-label="Language">
@@ -165,32 +164,32 @@
         <path d="M15 6h5.5V11.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
-    <h1 data-lang="en">Privacy Policy</h1>
-    <h1 data-lang="vi">Chính sách quyền riêng tư</h1>
-    <h1 data-lang="zh">隐私政策</h1>
-    <h1 data-lang="ko">개인정보처리방침</h1>
-    <h1 data-lang="ja">プライバシーポリシー</h1>
-    <p class="sub" data-lang="en">Smart Money Scanner &mdash; Crypto technical-analysis &amp; signal-scanning app</p>
-    <p class="sub" data-lang="vi">Smart Money Scanner &mdash; Ứng dụng phân tích kỹ thuật &amp; quét tín hiệu tiền điện tử</p>
-    <p class="sub" data-lang="zh">Smart Money Scanner &mdash; 加密货币技术分析与信号扫描应用</p>
-    <p class="sub" data-lang="ko">Smart Money Scanner &mdash; 암호화폐 기술적 분석 및 신호 스캔 앱</p>
-    <p class="sub" data-lang="ja">Smart Money Scanner &mdash; 暗号資産のテクニカル分析・シグナルスキャンアプリ</p>
-    <span class="updated" data-lang="en">Effective date: <span class="placeholder">[EFFECTIVE_DATE]</span></span>
-    <span class="updated" data-lang="vi">Ngày cập nhật hiệu lực: <span class="placeholder">[NGÀY_HIỆU_LỰC]</span></span>
-    <span class="updated" data-lang="zh">生效日期：<span class="placeholder">[EFFECTIVE_DATE]</span></span>
-    <span class="updated" data-lang="ko">시행일: <span class="placeholder">[EFFECTIVE_DATE]</span></span>
-    <span class="updated" data-lang="ja">発効日：<span class="placeholder">[EFFECTIVE_DATE]</span></span>
+    <h1 class="ml-el active-lang" data-lang="en">Privacy Policy</h1>
+    <h1 class="ml-el" data-lang="vi">Chính sách quyền riêng tư</h1>
+    <h1 class="ml-el" data-lang="zh">隐私政策</h1>
+    <h1 class="ml-el" data-lang="ko">개인정보처리방침</h1>
+    <h1 class="ml-el" data-lang="ja">プライバシーポリシー</h1>
+    <p class="sub ml-el active-lang" data-lang="en">Smart Money Scanner &mdash; Crypto technical-analysis &amp; signal-scanning app</p>
+    <p class="sub ml-el" data-lang="vi">Smart Money Scanner &mdash; Ứng dụng phân tích kỹ thuật &amp; quét tín hiệu tiền điện tử</p>
+    <p class="sub ml-el" data-lang="zh">Smart Money Scanner &mdash; 加密货币技术分析与信号扫描应用</p>
+    <p class="sub ml-el" data-lang="ko">Smart Money Scanner &mdash; 암호화폐 기술적 분석 및 신호 스캔 앱</p>
+    <p class="sub ml-el" data-lang="ja">Smart Money Scanner &mdash; 暗号資産のテクニカル分析・シグナルスキャンアプリ</p>
+    <span class="updated ml-el active-lang" data-lang="en">Effective date: <span class="placeholder">[EFFECTIVE_DATE]</span></span>
+    <span class="updated ml-el" data-lang="vi">Ngày cập nhật hiệu lực: <span class="placeholder">[NGÀY_HIỆU_LỰC]</span></span>
+    <span class="updated ml-el" data-lang="zh">生效日期：<span class="placeholder">[EFFECTIVE_DATE]</span></span>
+    <span class="updated ml-el" data-lang="ko">시행일: <span class="placeholder">[EFFECTIVE_DATE]</span></span>
+    <span class="updated ml-el" data-lang="ja">発効日：<span class="placeholder">[EFFECTIVE_DATE]</span></span>
   </header>
 
   <div class="wrap">
 
     <nav class="toc">
-      <div class="toc-title" data-lang="en">On this page</div>
-      <div class="toc-title" data-lang="vi">Trong trang này</div>
-      <div class="toc-title" data-lang="zh">本页内容</div>
-      <div class="toc-title" data-lang="ko">이 페이지의 내용</div>
-      <div class="toc-title" data-lang="ja">このページの内容</div>
-      <ol data-lang="en">
+      <div class="toc-title ml-el active-lang" data-lang="en">On this page</div>
+      <div class="toc-title ml-el" data-lang="vi">Trong trang này</div>
+      <div class="toc-title ml-el" data-lang="zh">本页内容</div>
+      <div class="toc-title ml-el" data-lang="ko">이 페이지의 내용</div>
+      <div class="toc-title ml-el" data-lang="ja">このページの内容</div>
+      <ol class="ml-el active-lang" data-lang="en">
         <li><a href="#s1">App nature &amp; our advertising commitment</a></li>
         <li><a href="#s2">Data we collect &amp; why</a></li>
         <li><a href="#s3">Third-party services we use</a></li>
@@ -199,7 +198,7 @@
         <li><a href="#s6">Your right to delete your data</a></li>
         <li><a href="#s7">Contact us</a></li>
       </ol>
-      <ol data-lang="vi">
+      <ol class="ml-el" data-lang="vi">
         <li><a href="#s1">Bản chất ứng dụng &amp; cam kết về quảng cáo</a></li>
         <li><a href="#s2">Dữ liệu chúng tôi thu thập &amp; mục đích</a></li>
         <li><a href="#s3">Dịch vụ bên thứ ba chúng tôi sử dụng</a></li>
@@ -208,7 +207,7 @@
         <li><a href="#s6">Quyền xoá dữ liệu của bạn</a></li>
         <li><a href="#s7">Liên hệ</a></li>
       </ol>
-      <ol data-lang="zh">
+      <ol class="ml-el" data-lang="zh">
         <li><a href="#s1">应用性质与我们的广告承诺</a></li>
         <li><a href="#s2">我们收集的数据及原因</a></li>
         <li><a href="#s3">我们使用的第三方服务</a></li>
@@ -217,7 +216,7 @@
         <li><a href="#s6">您删除数据的权利</a></li>
         <li><a href="#s7">联系我们</a></li>
       </ol>
-      <ol data-lang="ko">
+      <ol class="ml-el" data-lang="ko">
         <li><a href="#s1">앱의 성격 및 광고에 대한 약속</a></li>
         <li><a href="#s2">수집하는 데이터 및 목적</a></li>
         <li><a href="#s3">사용 중인 제3자 서비스</a></li>
@@ -226,7 +225,7 @@
         <li><a href="#s6">데이터 삭제 권리</a></li>
         <li><a href="#s7">문의하기</a></li>
       </ol>
-      <ol data-lang="ja">
+      <ol class="ml-el" data-lang="ja">
         <li><a href="#s1">アプリの性質と広告に関する約束</a></li>
         <li><a href="#s2">収集するデータとその目的</a></li>
         <li><a href="#s3">利用しているサードパーティサービス</a></li>
@@ -237,52 +236,52 @@
       </ol>
     </nav>
 
-    <div class="callout" data-lang="en">
+    <div class="callout ml-el active-lang" data-lang="en">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="#0A9B5C" stroke-width="1.8"/><path d="M8.5 12.5l2.3 2.3 4.7-5.2" stroke="#0A9B5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <div><b>This build contains no advertising whatsoever</b> and does not collect any Advertising ID. See section 1 for details.</div>
     </div>
-    <div class="callout" data-lang="vi">
+    <div class="callout ml-el" data-lang="vi">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="#0A9B5C" stroke-width="1.8"/><path d="M8.5 12.5l2.3 2.3 4.7-5.2" stroke="#0A9B5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <div><b>Phiên bản này hoàn toàn không chứa quảng cáo</b> và không thu thập bất kỳ Mã định danh quảng cáo (Advertising ID) nào. Xem chi tiết ở mục 1.</div>
     </div>
-    <div class="callout" data-lang="zh">
+    <div class="callout ml-el" data-lang="zh">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="#0A9B5C" stroke-width="1.8"/><path d="M8.5 12.5l2.3 2.3 4.7-5.2" stroke="#0A9B5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <div><b>此版本完全不含任何广告</b>，也不会收集广告标识符（Advertising ID）。详见第1节。</div>
     </div>
-    <div class="callout" data-lang="ko">
+    <div class="callout ml-el" data-lang="ko">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="#0A9B5C" stroke-width="1.8"/><path d="M8.5 12.5l2.3 2.3 4.7-5.2" stroke="#0A9B5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <div><b>이 버전에는 어떠한 광고도 포함되어 있지 않으며</b>, 광고 식별자(Advertising ID)도 수집하지 않습니다. 자세한 내용은 1항을 참고하세요.</div>
     </div>
-    <div class="callout" data-lang="ja">
+    <div class="callout ml-el" data-lang="ja">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="#0A9B5C" stroke-width="1.8"/><path d="M8.5 12.5l2.3 2.3 4.7-5.2" stroke="#0A9B5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <div><b>このバージョンには広告が一切含まれておらず</b>、広告識別子（Advertising ID）も収集しません。詳細はセクション1をご覧ください。</div>
     </div>
 
     <!-- ================= SECTION 1 ================= -->
     <section class="card" id="s1">
-      <h2 data-lang="en"><span class="num">1</span>App nature &amp; our advertising commitment</h2>
-      <h2 data-lang="vi"><span class="num">1</span>Bản chất ứng dụng &amp; cam kết về quảng cáo</h2>
-      <h2 data-lang="zh"><span class="num">1</span>应用性质与我们的广告承诺</h2>
-      <h2 data-lang="ko"><span class="num">1</span>앱의 성격 및 광고에 대한 약속</h2>
-      <h2 data-lang="ja"><span class="num">1</span>アプリの性質と広告に関する約束</h2>
+      <h2 class="ml-el active-lang" data-lang="en"><span class="num">1</span>App nature &amp; our advertising commitment</h2>
+      <h2 class="ml-el" data-lang="vi"><span class="num">1</span>Bản chất ứng dụng &amp; cam kết về quảng cáo</h2>
+      <h2 class="ml-el" data-lang="zh"><span class="num">1</span>应用性质与我们的广告承诺</h2>
+      <h2 class="ml-el" data-lang="ko"><span class="num">1</span>앱의 성격 및 광고에 대한 약속</h2>
+      <h2 class="ml-el" data-lang="ja"><span class="num">1</span>アプリの性質と広告に関する約束</h2>
 
-      <div data-lang="en">
+      <div class="ml-el active-lang" data-lang="en">
         <p><b>Nature of the service.</b> Smart Money Scanner is a technical-analysis tool (VSA, Volume Profile, RSI Momentum) that scans for signals and tracks the cryptocurrency market. The app does <b>NOT</b> provide any trading, deposit/withdrawal, wallet-storage, or asset-management functionality. All price and volume data is pulled from public data sources (such as the Binance WebSocket/HTTP API) for reference purposes only.</p>
         <p><b>Advertising commitment.</b> This build of the app contains <b>no advertising of any kind</b> and does not collect the device's Advertising ID.</p>
       </div>
-      <div data-lang="vi">
+      <div class="ml-el" data-lang="vi">
         <p><b>Bản chất dịch vụ.</b> Smart Money Scanner là công cụ hỗ trợ phân tích kỹ thuật (VSA, Volume Profile, RSI Momentum), quét tín hiệu và theo dõi thị trường tiền điện tử. Ứng dụng <b>KHÔNG</b> cung cấp bất kỳ tính năng giao dịch, nạp/rút tiền, lưu trữ ví hay quản lý tài sản tài chính nào. Tất cả dữ liệu giá và khối lượng được trích xuất từ các nguồn dữ liệu công khai (như Binance WebSocket/HTTP API) chỉ nhằm mục đích tham khảo.</p>
         <p><b>Cam kết về quảng cáo.</b> Phiên bản này của ứng dụng <b>hoàn toàn không chứa</b> bất kỳ quảng cáo nào và không thu thập Mã định danh quảng cáo (Advertising ID) của thiết bị.</p>
       </div>
-      <div data-lang="zh">
+      <div class="ml-el" data-lang="zh">
         <p><b>服务性质。</b>Smart Money Scanner 是一款技术分析工具（VSA、成交量分布、RSI 动量），用于扫描信号和追踪加密货币市场。本应用<b>不</b>提供任何交易、充值/提现、钱包存储或资产管理功能。所有价格和成交量数据均来自公开数据源（如 Binance WebSocket/HTTP API），仅供参考。</p>
         <p><b>广告承诺。</b>此版本应用<b>完全不包含</b>任何形式的广告，也不会收集设备的广告标识符（Advertising ID）。</p>
       </div>
-      <div data-lang="ko">
+      <div class="ml-el" data-lang="ko">
         <p><b>서비스의 성격.</b> Smart Money Scanner는 기술적 분석 도구(VSA, Volume Profile, RSI Momentum)로, 암호화폐 시장의 신호를 스캔하고 추적합니다. 본 앱은 거래, 입출금, 지갑 보관, 자산 관리 기능을 <b>제공하지 않습니다</b>. 모든 가격 및 거래량 데이터는 공개 데이터 소스(예: Binance WebSocket/HTTP API)에서 가져오며 참고용으로만 제공됩니다.</p>
         <p><b>광고에 대한 약속.</b> 이 버전의 앱은 <b>어떠한 형태의 광고도 포함하지 않으며</b>, 기기의 광고 식별자(Advertising ID)를 수집하지 않습니다.</p>
       </div>
-      <div data-lang="ja">
+      <div class="ml-el" data-lang="ja">
         <p><b>サービスの性質。</b>Smart Money Scanner はテクニカル分析ツール（VSA、Volume Profile、RSI モメンタム）で、暗号資産市場のシグナルをスキャンし追跡します。本アプリは取引、入出金、ウォレット保管、資産管理などの機能を<b>一切提供しません</b>。すべての価格・出来高データは公開データソース（Binance WebSocket/HTTP API など）から取得され、参考情報としてのみ提供されます。</p>
         <p><b>広告に関する約束。</b>このバージョンのアプリには、<b>いかなる形式の広告も含まれておらず</b>、デバイスの広告識別子（Advertising ID）も収集しません。</p>
       </div>
@@ -290,74 +289,89 @@
 
     <!-- ================= SECTION 2 ================= -->
     <section class="card" id="s2">
-      <h2 data-lang="en"><span class="num">2</span>Data we collect &amp; why</h2>
-      <h2 data-lang="vi"><span class="num">2</span>Dữ liệu chúng tôi thu thập &amp; mục đích</h2>
-      <h2 data-lang="zh"><span class="num">2</span>我们收集的数据及原因</h2>
-      <h2 data-lang="ko"><span class="num">2</span>수집하는 데이터 및 목적</h2>
-      <h2 data-lang="ja"><span class="num">2</span>収集するデータとその目的</h2>
+      <h2 class="ml-el active-lang" data-lang="en"><span class="num">2</span>Data we collect &amp; why</h2>
+      <h2 class="ml-el" data-lang="vi"><span class="num">2</span>Dữ liệu chúng tôi thu thập &amp; mục đích</h2>
+      <h2 class="ml-el" data-lang="zh"><span class="num">2</span>我们收集的数据及原因</h2>
+      <h2 class="ml-el" data-lang="ko"><span class="num">2</span>수집하는 데이터 및 목적</h2>
+      <h2 class="ml-el" data-lang="ja"><span class="num">2</span>収集するデータとその目的</h2>
 
-      <ul data-lang="en">
-        <li><b>Account information</b> (Google Sign-In &amp; Firebase Auth): your email address, display name, and profile photo when you sign in to create an account, sync your watchlist across devices, and save your personal settings.</li>
+      <ul class="ml-el active-lang" data-lang="en">
+        <li><b>Account information</b> (Google Sign-In &amp; Firebase Auth): your email address, display name, and profile photo when you sign in to create an account and save your personal settings.</li>
+        <li><b>Favorite list</b>: the list of symbols you mark as favorite is saved locally on your device only and is not synced through your account.</li>
         <li><b>Your configuration &amp; signals</b> (Cloud Firestore): your indicator/filter settings, Backscan run history, and price-alert configuration are stored in the cloud so they follow you across devices.</li>
+        <li><b>Community comments</b> (per-coin discussion): if you post a comment, we store your display name, the comment content, and (if applicable) report data, in order to operate the discussion feature.</li>
         <li><b>Exported files</b> (Share Plus): when you export a Backscan result, the app only creates a temporary file in the device's local storage (system temp folder) for you to share yourself via the system share sheet. We do not collect or upload this file to any external server.</li>
       </ul>
-      <ul data-lang="vi">
-        <li><b>Thông tin tài khoản</b> (Google Sign-In &amp; Firebase Auth): địa chỉ email, tên hiển thị và ảnh đại diện khi bạn đăng nhập để tạo tài khoản, đồng bộ danh mục theo dõi (Watchlist) giữa các thiết bị và lưu cấu hình cá nhân.</li>
+      <p class="ml-el active-lang" data-lang="en">The app has a content moderation system and may limit or restrict accounts that violate our community guidelines.</p>
+      <ul class="ml-el" data-lang="vi">
+        <li><b>Thông tin tài khoản</b> (Google Sign-In &amp; Firebase Auth): địa chỉ email, tên hiển thị và ảnh đại diện khi bạn đăng nhập để tạo tài khoản và lưu cấu hình cá nhân.</li>
+        <li><b>Danh sách yêu thích</b>: danh sách các coin bạn đánh dấu yêu thích được lưu CỤC BỘ trên thiết bị, không đồng bộ qua tài khoản.</li>
         <li><b>Cấu hình &amp; tín hiệu người dùng</b> (Cloud Firestore): các cài đặt bộ lọc chỉ báo, lịch sử chạy Backscan và cấu hình cảnh báo giá của bạn được lưu trữ trên đám mây để theo bạn giữa các thiết bị.</li>
+        <li><b>Bình luận cộng đồng</b> (thảo luận theo từng coin): nếu bạn đăng bình luận, chúng tôi lưu tên hiển thị, nội dung bình luận và (nếu có) dữ liệu báo cáo, để vận hành tính năng thảo luận.</li>
         <li><b>Tệp xuất dữ liệu</b> (Share Plus): khi bạn xuất kết quả Backscan, ứng dụng chỉ tạo 1 tệp tạm thời trên bộ nhớ cục bộ của thiết bị (thư mục tạm hệ thống) để bạn tự chia sẻ qua bảng chia sẻ của hệ thống. Chúng tôi không thu thập hay tải tệp này lên bất kỳ máy chủ ngoài nào.</li>
       </ul>
-      <ul data-lang="zh">
-        <li><b>账户信息</b>（Google 登录与 Firebase Auth）：当您登录以创建账户、跨设备同步自选列表并保存个人设置时，我们会获取您的电子邮件地址、显示名称和头像。</li>
+      <p class="ml-el" data-lang="vi">Ứng dụng có hệ thống kiểm duyệt nội dung và có thể hạn chế/xử lý các tài khoản vi phạm quy định cộng đồng.</p>
+      <ul class="ml-el" data-lang="zh">
+        <li><b>账户信息</b>（Google 登录与 Firebase Auth）：当您登录以创建账户并保存个人设置时，我们会获取您的电子邮件地址、显示名称和头像。</li>
+        <li><b>收藏列表</b>：您标记为收藏的币种列表仅保存在本地设备上，不通过账户同步。</li>
         <li><b>您的配置与信号</b>（Cloud Firestore）：您的指标/筛选设置、Backscan 运行历史和价格提醒配置会存储在云端，以便在不同设备间保持同步。</li>
+        <li><b>社区评论</b>（按币种讨论）：如果您发表评论，我们会存储您的显示名称、评论内容以及（如适用）举报数据，以运行讨论功能。</li>
         <li><b>导出文件</b>（Share Plus）：当您导出 Backscan 结果时，应用仅在设备本地存储（系统临时文件夹）中创建临时文件，供您通过系统分享面板自行分享。我们不会收集或将此文件上传到任何外部服务器。</li>
       </ul>
-      <ul data-lang="ko">
-        <li><b>계정 정보</b> (Google 로그인 및 Firebase Auth): 계정을 생성하고, 관심 목록을 기기 간 동기화하며, 개인 설정을 저장하기 위해 로그인할 때 이메일 주소, 표시 이름, 프로필 사진을 수집합니다.</li>
+      <p class="ml-el" data-lang="zh">应用配有内容审核机制，对违反社区准则的账户可能采取限制措施。</p>
+      <ul class="ml-el" data-lang="ko">
+        <li><b>계정 정보</b> (Google 로그인 및 Firebase Auth): 계정을 생성하고 개인 설정을 저장하기 위해 로그인할 때 이메일 주소, 표시 이름, 프로필 사진을 수집합니다.</li>
+        <li><b>관심 코인 목록</b>: 관심 코인으로 표시한 목록은 기기에만 로컬로 저장되며, 계정을 통해 동기화되지 않습니다.</li>
         <li><b>사용자 설정 및 신호</b> (Cloud Firestore): 지표/필터 설정, Backscan 실행 기록, 가격 알림 설정을 클라우드에 저장하여 기기 간 동기화됩니다.</li>
+        <li><b>커뮤니티 댓글</b> (코인별 토론): 댓글을 작성하면 토론 기능 운영을 위해 표시 이름, 댓글 내용, (해당하는 경우) 신고 데이터를 저장합니다.</li>
         <li><b>내보낸 파일</b> (Share Plus): Backscan 결과를 내보낼 때, 앱은 기기 로컬 저장소(시스템 임시 폴더)에 임시 파일만 생성하여 시스템 공유 시트를 통해 직접 공유할 수 있도록 합니다. 이 파일을 수집하거나 외부 서버에 업로드하지 않습니다.</li>
       </ul>
-      <ul data-lang="ja">
-        <li><b>アカウント情報</b>（Google サインイン＆Firebase Auth）：アカウントを作成し、ウォッチリストをデバイス間で同期し、個人設定を保存するためにサインインする際、メールアドレス、表示名、プロフィール写真を取得します。</li>
+      <p class="ml-el" data-lang="ko">앱에는 콘텐츠 검토 시스템이 있으며, 커뮤니티 가이드라인을 위반한 계정은 제한 조치를 받을 수 있습니다.</p>
+      <ul class="ml-el" data-lang="ja">
+        <li><b>アカウント情報</b>（Google サインイン＆Firebase Auth）：アカウントを作成し、個人設定を保存するためにサインインする際、メールアドレス、表示名、プロフィール写真を取得します。</li>
+        <li><b>お気に入りリスト</b>：お気に入りに登録した銘柄のリストはデバイスにローカル保存されるのみで、アカウントを通じて同期されません。</li>
         <li><b>設定とシグナル</b>（Cloud Firestore）：指標/フィルター設定、Backscan の実行履歴、価格アラート設定はクラウドに保存され、デバイス間で同期されます。</li>
+        <li><b>コミュニティコメント</b>（銘柄ごとのディスカッション）：コメントを投稿すると、ディスカッション機能の運営のため、表示名、コメント内容、（該当する場合）通報データを保存します。</li>
         <li><b>エクスポートされたファイル</b>（Share Plus）：Backscan の結果をエクスポートする際、アプリはデバイスのローカルストレージ（システムの一時フォルダ）に一時ファイルを作成するだけで、システムの共有シートを通じてご自身で共有していただけます。このファイルを収集したり外部サーバーにアップロードしたりすることはありません。</li>
       </ul>
+      <p class="ml-el" data-lang="ja">アプリにはコンテンツ審査の仕組みがあり、コミュニティガイドラインに違反したアカウントには制限措置が取られる場合があります。</p>
     </section>
 
     <!-- ================= SECTION 3 ================= -->
     <section class="card" id="s3">
-      <h2 data-lang="en"><span class="num">3</span>Third-party services we use</h2>
-      <h2 data-lang="vi"><span class="num">3</span>Dịch vụ bên thứ ba chúng tôi sử dụng</h2>
-      <h2 data-lang="zh"><span class="num">3</span>我们使用的第三方服务</h2>
-      <h2 data-lang="ko"><span class="num">3</span>사용 중인 제3자 서비스</h2>
-      <h2 data-lang="ja"><span class="num">3</span>利用しているサードパーティサービス</h2>
+      <h2 class="ml-el active-lang" data-lang="en"><span class="num">3</span>Third-party services we use</h2>
+      <h2 class="ml-el" data-lang="vi"><span class="num">3</span>Dịch vụ bên thứ ba chúng tôi sử dụng</h2>
+      <h2 class="ml-el" data-lang="zh"><span class="num">3</span>我们使用的第三方服务</h2>
+      <h2 class="ml-el" data-lang="ko"><span class="num">3</span>사용 중인 제3자 서비스</h2>
+      <h2 class="ml-el" data-lang="ja"><span class="num">3</span>利用しているサードパーティサービス</h2>
 
-      <p data-lang="en">To power analysis and sync features, the app integrates the following SDKs:</p>
-      <p data-lang="vi">Để vận hành các tính năng phân tích và đồng bộ, ứng dụng tích hợp các SDK sau:</p>
-      <p data-lang="zh">为实现分析与同步功能，应用集成了以下 SDK：</p>
-      <p data-lang="ko">분석 및 동기화 기능을 위해 앱은 다음 SDK를 통합합니다:</p>
-      <p data-lang="ja">分析機能と同期機能を実現するため、アプリは以下の SDK を統合しています：</p>
+      <p class="ml-el active-lang" data-lang="en">To power analysis and sync features, the app integrates the following SDKs:</p>
+      <p class="ml-el" data-lang="vi">Để vận hành các tính năng phân tích và đồng bộ, ứng dụng tích hợp các SDK sau:</p>
+      <p class="ml-el" data-lang="zh">为实现分析与同步功能，应用集成了以下 SDK：</p>
+      <p class="ml-el" data-lang="ko">분석 및 동기화 기능을 위해 앱은 다음 SDK를 통합합니다:</p>
+      <p class="ml-el" data-lang="ja">分析機能と同期機能を実現するため、アプリは以下の SDK を統合しています：</p>
 
-      <ul data-lang="en">
+      <ul class="ml-el active-lang" data-lang="en">
         <li><b>Google Play Services &amp; Google Sign-In</b> &mdash; secure user authentication.</li>
         <li><b>Firebase</b> (Core, Auth, Cloud Firestore, Messaging) &mdash; manages sign-in, stores your synced data, and delivers push notifications about market signals.</li>
         <li><b>Flutter Local Notifications</b> &mdash; triggers local price-alert and signal notifications on your device.</li>
       </ul>
-      <ul data-lang="vi">
+      <ul class="ml-el" data-lang="vi">
         <li><b>Google Play Services &amp; Google Sign-In</b> &mdash; xác thực người dùng an toàn.</li>
         <li><b>Firebase</b> (Core, Auth, Cloud Firestore, Messaging) &mdash; quản lý đăng nhập, lưu trữ dữ liệu đồng bộ và gửi thông báo đẩy (push notification) về tín hiệu thị trường.</li>
         <li><b>Flutter Local Notifications</b> &mdash; kích hoạt hiển thị thông báo cảnh báo giá/tín hiệu cục bộ trên thiết bị của bạn.</li>
       </ul>
-      <ul data-lang="zh">
+      <ul class="ml-el" data-lang="zh">
         <li><b>Google Play 服务与 Google 登录</b> &mdash; 安全的用户身份验证。</li>
         <li><b>Firebase</b>（Core、Auth、Cloud Firestore、Messaging）&mdash; 管理登录、存储您的同步数据，并推送有关市场信号的通知。</li>
         <li><b>Flutter Local Notifications</b> &mdash; 在您的设备上触发本地价格提醒和信号通知。</li>
       </ul>
-      <ul data-lang="ko">
+      <ul class="ml-el" data-lang="ko">
         <li><b>Google Play 서비스 및 Google 로그인</b> &mdash; 안전한 사용자 인증.</li>
         <li><b>Firebase</b> (Core, Auth, Cloud Firestore, Messaging) &mdash; 로그인 관리, 동기화 데이터 저장, 시장 신호에 대한 푸시 알림 전송.</li>
         <li><b>Flutter Local Notifications</b> &mdash; 기기에서 로컬 가격 알림 및 신호 알림을 트리거합니다.</li>
       </ul>
-      <ul data-lang="ja">
+      <ul class="ml-el" data-lang="ja">
         <li><b>Google Play サービス＆Google サインイン</b> &mdash; 安全なユーザー認証。</li>
         <li><b>Firebase</b>（Core、Auth、Cloud Firestore、Messaging）&mdash; サインインの管理、同期データの保存、市場シグナルに関するプッシュ通知の配信。</li>
         <li><b>Flutter Local Notifications</b> &mdash; デバイス上でローカルの価格アラートおよびシグナル通知をトリガーします。</li>
@@ -366,39 +380,39 @@
 
     <!-- ================= SECTION 4 ================= -->
     <section class="card" id="s4">
-      <h2 data-lang="en"><span class="num">4</span>App permissions</h2>
-      <h2 data-lang="vi"><span class="num">4</span>Quyền ứng dụng</h2>
-      <h2 data-lang="zh"><span class="num">4</span>应用权限</h2>
-      <h2 data-lang="ko"><span class="num">4</span>앱 권한</h2>
-      <h2 data-lang="ja"><span class="num">4</span>アプリの権限</h2>
+      <h2 class="ml-el active-lang" data-lang="en"><span class="num">4</span>App permissions</h2>
+      <h2 class="ml-el" data-lang="vi"><span class="num">4</span>Quyền ứng dụng</h2>
+      <h2 class="ml-el" data-lang="zh"><span class="num">4</span>应用权限</h2>
+      <h2 class="ml-el" data-lang="ko"><span class="num">4</span>앱 권한</h2>
+      <h2 class="ml-el" data-lang="ja"><span class="num">4</span>アプリの権限</h2>
 
-      <p data-lang="en">The app only requests the minimum permissions needed to operate:</p>
-      <p data-lang="vi">Ứng dụng chỉ xin các quyền tối thiểu để vận hành:</p>
-      <p data-lang="zh">应用仅请求运行所需的最基本权限：</p>
-      <p data-lang="ko">앱은 작동에 필요한 최소한의 권한만 요청합니다:</p>
-      <p data-lang="ja">アプリは動作に必要な最小限の権限のみを要求します：</p>
+      <p class="ml-el active-lang" data-lang="en">The app only requests the minimum permissions needed to operate:</p>
+      <p class="ml-el" data-lang="vi">Ứng dụng chỉ xin các quyền tối thiểu để vận hành:</p>
+      <p class="ml-el" data-lang="zh">应用仅请求运行所需的最基本权限：</p>
+      <p class="ml-el" data-lang="ko">앱은 작동에 필요한 최소한의 권한만 요청합니다:</p>
+      <p class="ml-el" data-lang="ja">アプリは動作に必要な最小限の権限のみを要求します：</p>
 
-      <ul data-lang="en">
+      <ul class="ml-el active-lang" data-lang="en">
         <li><b>INTERNET &amp; ACCESS_NETWORK_STATE</b> &mdash; to connect to real-time data streams (WebSocket) from the exchange and to sync data with Firebase.</li>
         <li><b>POST_NOTIFICATIONS</b> &mdash; to request permission to send price-alert and technical-signal notifications.</li>
         <li><b>VIBRATE</b> &mdash; to provide haptic feedback when a new signal notification arrives.</li>
       </ul>
-      <ul data-lang="vi">
+      <ul class="ml-el" data-lang="vi">
         <li><b>INTERNET &amp; ACCESS_NETWORK_STATE</b> &mdash; kết nối luồng dữ liệu thời gian thực (WebSocket) từ sàn giao dịch và đồng bộ dữ liệu với Firebase.</li>
         <li><b>POST_NOTIFICATIONS</b> &mdash; xin phép gửi thông báo cảnh báo giá và tín hiệu kỹ thuật.</li>
         <li><b>VIBRATE</b> &mdash; phản hồi rung khi nhận được thông báo tín hiệu mới.</li>
       </ul>
-      <ul data-lang="zh">
+      <ul class="ml-el" data-lang="zh">
         <li><b>INTERNET 与 ACCESS_NETWORK_STATE</b> &mdash; 用于连接交易所的实时数据流（WebSocket）并与 Firebase 同步数据。</li>
         <li><b>POST_NOTIFICATIONS</b> &mdash; 请求发送价格提醒和技术信号通知的权限。</li>
         <li><b>VIBRATE</b> &mdash; 收到新信号通知时提供震动反馈。</li>
       </ul>
-      <ul data-lang="ko">
+      <ul class="ml-el" data-lang="ko">
         <li><b>INTERNET 및 ACCESS_NETWORK_STATE</b> &mdash; 거래소의 실시간 데이터 스트림(WebSocket)에 연결하고 Firebase와 데이터를 동기화하기 위함.</li>
         <li><b>POST_NOTIFICATIONS</b> &mdash; 가격 알림 및 기술적 신호 알림을 보내기 위한 권한 요청.</li>
         <li><b>VIBRATE</b> &mdash; 새 신호 알림 수신 시 진동 피드백 제공.</li>
       </ul>
-      <ul data-lang="ja">
+      <ul class="ml-el" data-lang="ja">
         <li><b>INTERNET と ACCESS_NETWORK_STATE</b> &mdash; 取引所のリアルタイムデータストリーム（WebSocket）への接続と Firebase とのデータ同期のため。</li>
         <li><b>POST_NOTIFICATIONS</b> &mdash; 価格アラートおよびテクニカルシグナル通知の送信許可を要求するため。</li>
         <li><b>VIBRATE</b> &mdash; 新しいシグナル通知受信時に振動フィードバックを提供するため。</li>
@@ -407,69 +421,69 @@
 
     <!-- ================= SECTION 5 ================= -->
     <section class="card" id="s5">
-      <h2 data-lang="en"><span class="num">5</span>Children's privacy (COPPA)</h2>
-      <h2 data-lang="vi"><span class="num">5</span>Chính sách bảo vệ trẻ em (COPPA)</h2>
-      <h2 data-lang="zh"><span class="num">5</span>儿童隐私保护（COPPA）</h2>
-      <h2 data-lang="ko"><span class="num">5</span>아동 개인정보 보호 (COPPA)</h2>
-      <h2 data-lang="ja"><span class="num">5</span>子供のプライバシー（COPPA）</h2>
+      <h2 class="ml-el active-lang" data-lang="en"><span class="num">5</span>Children's privacy (COPPA)</h2>
+      <h2 class="ml-el" data-lang="vi"><span class="num">5</span>Chính sách bảo vệ trẻ em (COPPA)</h2>
+      <h2 class="ml-el" data-lang="zh"><span class="num">5</span>儿童隐私保护（COPPA）</h2>
+      <h2 class="ml-el" data-lang="ko"><span class="num">5</span>아동 개인정보 보호 (COPPA)</h2>
+      <h2 class="ml-el" data-lang="ja"><span class="num">5</span>子供のプライバシー（COPPA）</h2>
 
-      <p data-lang="en">Smart Money Scanner is a financial-market analysis app and is not directed at children under the age of 13. We do not knowingly collect personal information from children. If we discover that a child under 13 has provided us with personal data, we will delete it immediately.</p>
-      <p data-lang="vi">Smart Money Scanner là ứng dụng phân tích thị trường tài chính, không dành cho trẻ em dưới 13 tuổi. Chúng tôi không chủ động thu thập bất kỳ thông tin cá nhân nào từ trẻ em. Nếu phát hiện dữ liệu của trẻ em dưới 13 tuổi tồn tại trên hệ thống, chúng tôi sẽ tiến hành xoá ngay lập tức.</p>
-      <p data-lang="zh">Smart Money Scanner 是一款金融市场分析应用，不面向13岁以下儿童。我们不会故意收集儿童的个人信息。如发现系统中存在13岁以下儿童的个人数据，我们将立即删除。</p>
-      <p data-lang="ko">Smart Money Scanner는 금융 시장 분석 앱으로, 13세 미만 아동을 대상으로 하지 않습니다. 당사는 아동의 개인정보를 고의로 수집하지 않습니다. 13세 미만 아동의 개인정보가 시스템에 존재하는 것이 발견되면 즉시 삭제합니다.</p>
-      <p data-lang="ja">Smart Money Scanner は金融市場分析アプリであり、13歳未満のお子様を対象としていません。当社は子供の個人情報を意図的に収集することはありません。13歳未満のお子様の個人データがシステム上に存在することが判明した場合、直ちに削除します。</p>
+      <p class="ml-el active-lang" data-lang="en">Smart Money Scanner is a financial-market analysis app and is not directed at children under the age of 13. We do not knowingly collect personal information from children. If we discover that a child under 13 has provided us with personal data, we will delete it immediately.</p>
+      <p class="ml-el" data-lang="vi">Smart Money Scanner là ứng dụng phân tích thị trường tài chính, không dành cho trẻ em dưới 13 tuổi. Chúng tôi không chủ động thu thập bất kỳ thông tin cá nhân nào từ trẻ em. Nếu phát hiện dữ liệu của trẻ em dưới 13 tuổi tồn tại trên hệ thống, chúng tôi sẽ tiến hành xoá ngay lập tức.</p>
+      <p class="ml-el" data-lang="zh">Smart Money Scanner 是一款金融市场分析应用，不面向13岁以下儿童。我们不会故意收集儿童的个人信息。如发现系统中存在13岁以下儿童的个人数据，我们将立即删除。</p>
+      <p class="ml-el" data-lang="ko">Smart Money Scanner는 금융 시장 분석 앱으로, 13세 미만 아동을 대상으로 하지 않습니다. 당사는 아동의 개인정보를 고의로 수집하지 않습니다. 13세 미만 아동의 개인정보가 시스템에 존재하는 것이 발견되면 즉시 삭제합니다.</p>
+      <p class="ml-el" data-lang="ja">Smart Money Scanner は金融市場分析アプリであり、13歳未満のお子様を対象としていません。当社は子供の個人情報を意図的に収集することはありません。13歳未満のお子様の個人データがシステム上に存在することが判明した場合、直ちに削除します。</p>
     </section>
 
     <!-- ================= SECTION 6 ================= -->
     <section class="card" id="s6">
-      <h2 data-lang="en"><span class="num">6</span>Your right to delete your data</h2>
-      <h2 data-lang="vi"><span class="num">6</span>Quyền xoá dữ liệu của bạn</h2>
-      <h2 data-lang="zh"><span class="num">6</span>您删除数据的权利</h2>
-      <h2 data-lang="ko"><span class="num">6</span>데이터 삭제 권리</h2>
-      <h2 data-lang="ja"><span class="num">6</span>データ削除の権利</h2>
+      <h2 class="ml-el active-lang" data-lang="en"><span class="num">6</span>Your right to delete your data</h2>
+      <h2 class="ml-el" data-lang="vi"><span class="num">6</span>Quyền xoá dữ liệu của bạn</h2>
+      <h2 class="ml-el" data-lang="zh"><span class="num">6</span>您删除数据的权利</h2>
+      <h2 class="ml-el" data-lang="ko"><span class="num">6</span>데이터 삭제 권리</h2>
+      <h2 class="ml-el" data-lang="ja"><span class="num">6</span>データ削除の権利</h2>
 
-      <div data-lang="en">
-        <p>You are always in control of your personal data. To permanently delete your account and all configuration/watchlist data saved on Cloud Firestore, send a request to our support email: <span class="placeholder">[SUPPORT_EMAIL]</span> with the subject line "Data Deletion Request &ndash; Smart Money Scanner". We will process and fully delete your data within 7 business days.</p>
+      <div class="ml-el active-lang" data-lang="en">
+        <p>You are always in control of your personal data. To permanently delete your account and all configuration data saved on Cloud Firestore, send a request to our support email: <span class="placeholder">[SUPPORT_EMAIL]</span> with the subject line "Data Deletion Request &ndash; Smart Money Scanner". We will process and fully delete your data within 7 business days.</p>
       </div>
-      <div data-lang="vi">
-        <p>Bạn có toàn quyền kiểm soát dữ liệu cá nhân của mình. Để xoá hoàn toàn tài khoản và toàn bộ dữ liệu cấu hình/watchlist đã lưu trên Cloud Firestore, hãy gửi yêu cầu về email hỗ trợ: <span class="placeholder">[SUPPORT_EMAIL]</span> với tiêu đề "Yêu cầu xoá dữ liệu &ndash; Smart Money Scanner". Chúng tôi sẽ xử lý và xoá sạch dữ liệu trong vòng 7 ngày làm việc.</p>
+      <div class="ml-el" data-lang="vi">
+        <p>Bạn có toàn quyền kiểm soát dữ liệu cá nhân của mình. Để xoá hoàn toàn tài khoản và toàn bộ dữ liệu cấu hình đã lưu trên Cloud Firestore, hãy gửi yêu cầu về email hỗ trợ: <span class="placeholder">[SUPPORT_EMAIL]</span> với tiêu đề "Yêu cầu xoá dữ liệu &ndash; Smart Money Scanner". Chúng tôi sẽ xử lý và xoá sạch dữ liệu trong vòng 7 ngày làm việc.</p>
       </div>
-      <div data-lang="zh">
-        <p>您始终掌控自己的个人数据。如需永久删除您的账户以及存储在 Cloud Firestore 上的所有配置/自选列表数据，请发送邮件至我们的支持邮箱：<span class="placeholder">[SUPPORT_EMAIL]</span>，邮件主题为"数据删除请求 &ndash; Smart Money Scanner"。我们将在7个工作日内处理并彻底删除您的数据。</p>
+      <div class="ml-el" data-lang="zh">
+        <p>您始终掌控自己的个人数据。如需永久删除您的账户以及存储在 Cloud Firestore 上的所有配置数据，请发送邮件至我们的支持邮箱：<span class="placeholder">[SUPPORT_EMAIL]</span>，邮件主题为"数据删除请求 &ndash; Smart Money Scanner"。我们将在7个工作日内处理并彻底删除您的数据。</p>
       </div>
-      <div data-lang="ko">
-        <p>귀하는 항상 자신의 개인정보를 통제할 수 있습니다. 계정과 Cloud Firestore에 저장된 모든 설정/관심 목록 데이터를 영구적으로 삭제하려면, 지원 이메일(<span class="placeholder">[SUPPORT_EMAIL]</span>)로 "데이터 삭제 요청 &ndash; Smart Money Scanner"라는 제목으로 요청을 보내주세요. 영업일 기준 7일 이내에 처리하여 데이터를 완전히 삭제해 드립니다.</p>
+      <div class="ml-el" data-lang="ko">
+        <p>귀하는 항상 자신의 개인정보를 통제할 수 있습니다. 계정과 Cloud Firestore에 저장된 모든 설정 데이터를 영구적으로 삭제하려면, 지원 이메일(<span class="placeholder">[SUPPORT_EMAIL]</span>)로 "데이터 삭제 요청 &ndash; Smart Money Scanner"라는 제목으로 요청을 보내주세요. 영업일 기준 7일 이내에 처리하여 데이터를 완전히 삭제해 드립니다.</p>
       </div>
-      <div data-lang="ja">
-        <p>お客様はご自身の個人データを常にコントロールできます。アカウントおよび Cloud Firestore に保存されているすべての設定/ウォッチリストデータを完全に削除するには、サポートメール（<span class="placeholder">[SUPPORT_EMAIL]</span>）宛てに「データ削除リクエスト &ndash; Smart Money Scanner」という件名でご連絡ください。7営業日以内に処理し、データを完全に削除いたします。</p>
+      <div class="ml-el" data-lang="ja">
+        <p>お客様はご自身の個人データを常にコントロールできます。アカウントおよび Cloud Firestore に保存されているすべての設定データを完全に削除するには、サポートメール（<span class="placeholder">[SUPPORT_EMAIL]</span>）宛てに「データ削除リクエスト &ndash; Smart Money Scanner」という件名でご連絡ください。7営業日以内に処理し、データを完全に削除いたします。</p>
       </div>
     </section>
 
     <!-- ================= SECTION 7 ================= -->
     <section class="card" id="s7">
-      <h2 data-lang="en"><span class="num">7</span>Contact us</h2>
-      <h2 data-lang="vi"><span class="num">7</span>Liên hệ</h2>
-      <h2 data-lang="zh"><span class="num">7</span>联系我们</h2>
-      <h2 data-lang="ko"><span class="num">7</span>문의하기</h2>
-      <h2 data-lang="ja"><span class="num">7</span>お問い合わせ</h2>
+      <h2 class="ml-el active-lang" data-lang="en"><span class="num">7</span>Contact us</h2>
+      <h2 class="ml-el" data-lang="vi"><span class="num">7</span>Liên hệ</h2>
+      <h2 class="ml-el" data-lang="zh"><span class="num">7</span>联系我们</h2>
+      <h2 class="ml-el" data-lang="ko"><span class="num">7</span>문의하기</h2>
+      <h2 class="ml-el" data-lang="ja"><span class="num">7</span>お問い合わせ</h2>
 
-      <div data-lang="en">
+      <div class="ml-el active-lang" data-lang="en">
         <p>Email: <span class="placeholder">[SUPPORT_EMAIL]</span><br>
         Website: <span class="placeholder">[WEBSITE_URL]</span></p>
       </div>
-      <div data-lang="vi">
+      <div class="ml-el" data-lang="vi">
         <p>Email: <span class="placeholder">[SUPPORT_EMAIL]</span><br>
         Website: <span class="placeholder">[WEBSITE_URL]</span></p>
       </div>
-      <div data-lang="zh">
+      <div class="ml-el" data-lang="zh">
         <p>电子邮箱：<span class="placeholder">[SUPPORT_EMAIL]</span><br>
         网站：<span class="placeholder">[WEBSITE_URL]</span></p>
       </div>
-      <div data-lang="ko">
+      <div class="ml-el" data-lang="ko">
         <p>이메일: <span class="placeholder">[SUPPORT_EMAIL]</span><br>
         웹사이트: <span class="placeholder">[WEBSITE_URL]</span></p>
       </div>
-      <div data-lang="ja">
+      <div class="ml-el" data-lang="ja">
         <p>メール：<span class="placeholder">[SUPPORT_EMAIL]</span><br>
         ウェブサイト：<span class="placeholder">[WEBSITE_URL]</span></p>
       </div>
@@ -478,18 +492,29 @@
   </div>
 
   <footer>
-    <span data-lang="en">&copy; <span id="year-en"></span> Smart Money Scanner. All rights reserved.</span>
-    <span data-lang="vi">&copy; <span id="year-vi"></span> Smart Money Scanner. Bảo lưu mọi quyền.</span>
-    <span data-lang="zh">&copy; <span id="year-zh"></span> Smart Money Scanner。保留所有权利。</span>
-    <span data-lang="ko">&copy; <span id="year-ko"></span> Smart Money Scanner. All rights reserved.</span>
-    <span data-lang="ja">&copy; <span id="year-ja"></span> Smart Money Scanner。全著作権所有。</span>
+    <span class="ml-el active-lang" data-lang="en">&copy; <span id="year-en"></span> Smart Money Scanner. All rights reserved.</span>
+    <span class="ml-el" data-lang="vi">&copy; <span id="year-vi"></span> Smart Money Scanner. Bảo lưu mọi quyền.</span>
+    <span class="ml-el" data-lang="zh">&copy; <span id="year-zh"></span> Smart Money Scanner。保留所有权利。</span>
+    <span class="ml-el" data-lang="ko">&copy; <span id="year-ko"></span> Smart Money Scanner. All rights reserved.</span>
+    <span class="ml-el" data-lang="ja">&copy; <span id="year-ja"></span> Smart Money Scanner。全著作権所有。</span>
   </footer>
 
 <script>
   var ALL_LANGS = ['en','vi','zh','ko','ja'];
   function setLang(lang){
+    // Đúng logic đơn giản nhất: bỏ `.active-lang` khỏi MỌI `.ml-el` đang có,
+    // rồi gắn lại cho ĐÚNG nhóm phần tử khớp ngôn ngữ vừa chọn - không cần
+    // if/else, không cần set `style.display` tay - CSS (`.ml-el:not(.active-lang)
+    // {display:none!important}`) tự lo phần còn lại, đúng bản chất "phần tử
+    // có class active-lang thì rule ẩn KHÔNG KHỚP nữa" chứ không phải ganh
+    // đua độ ưu tiên với `.callout`/`h2`/`.updated`.
+    document.querySelectorAll('.ml-el.active-lang').forEach(function(el){
+      el.classList.remove('active-lang');
+    });
+    document.querySelectorAll('.ml-el[data-lang="' + lang + '"]').forEach(function(el){
+      el.classList.add('active-lang');
+    });
     ALL_LANGS.forEach(function(l){
-      document.body.classList.toggle('lang-' + l, lang === l && l !== 'en');
       document.getElementById('btn-' + l).classList.toggle('active', lang === l);
     });
     document.documentElement.lang = lang;
@@ -498,7 +523,11 @@
   (function(){
     var saved = null;
     try { saved = localStorage.getItem('smsPrivacyLang'); } catch(e){}
-    if (ALL_LANGS.indexOf(saved) !== -1) setLang(saved);
+    // Gọi setLang() ngay từ đầu để đồng bộ trạng thái nút bấm + localStorage
+    // - phần ẩn/hiện nội dung đã đúng SẴN từ HTML/CSS (EN có `.active-lang`
+    // gắn cứng) dù có dòng này hay không, dòng này chỉ lo phần TƯƠNG TÁC
+    // (nút nào đang "active", nhớ lựa chọn lần trước).
+    setLang(ALL_LANGS.indexOf(saved) !== -1 ? saved : 'en');
     var y = new Date().getFullYear();
     ALL_LANGS.forEach(function(l){
       var el = document.getElementById('year-' + l);
