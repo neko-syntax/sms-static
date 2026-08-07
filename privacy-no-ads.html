@@ -121,15 +121,15 @@
     padding:20px 20px 40px;
   }
 
-  /* Show/hide by language - ONE rule only, no if/else, works with or
-     without JS:
-     - Element WITHOUT `.active-lang` -> hidden (the `:not()` selector makes
-       this rule simply NOT MATCH the currently active element, rather than
-       "winning" via CSS specificity - so it never has to compete with
-       `.callout`/`h2`/`.updated`... on that same element).
-     - EN ships with `.active-lang` hardcoded straight in the HTML (no JS
-       needed) -> English shows correctly by default even if JS is off/
-       broken, with no missing/extra content. */
+  /* Ẩn/hiện theo ngôn ngữ - CHỈ 1 quy tắc DUY NHẤT, không if/else, không
+     phân biệt có JS hay không:
+     - Phần tử KHÔNG có `.active-lang` -> ẩn (selector `:not()` khiến quy
+       tắc TỰ ĐỘNG KHÔNG KHỚP với phần tử ĐANG active - không phải "thắng"
+       nhờ độ ưu tiên CSS, nên không còn ganh đua với `.callout`/`h2`/
+       `.updated`... của chính element đó nữa).
+     - EN được gắn sẵn `.active-lang` NGAY TRONG HTML (không cần JS) -> mặc
+       định hiện đúng tiếng Anh kể cả khi JS tắt/lỗi, không thiếu/thừa nội
+       dung. */
   .ml-el:not(.active-lang){display:none !important;}
 
   @media (max-width:520px){
@@ -144,7 +144,7 @@
   <div class="topbar">
     <div class="topbar-inner">
       <div class="brand">
-        <img src="[ICON_URL]" alt="Smart Money Scanner" onerror="this.style.display='none'">
+        <img src="./assets/icons/app_icon.webp" alt="Smart Money Scanner" onerror="this.style.display='none'">
         <span>Smart Money Scanner</span>
       </div>
       <div class="langswitch" role="tablist" aria-label="Language">
@@ -297,40 +297,35 @@
 
       <ul class="ml-el active-lang" data-lang="en">
         <li><b>Account information</b> (Google Sign-In &amp; Firebase Auth): your email address, display name, and profile photo when you sign in to create an account and save your personal settings.</li>
-        <li><b>Favorite list</b>: the list of symbols you mark as favorite is saved locally on your device only and is not synced through your account.</li>
-        <li><b>Your configuration &amp; signals</b> (Cloud Firestore): your indicator/filter settings, Backscan run history, and price-alert configuration are stored in the cloud so they follow you across devices.</li>
+        <li><b>Your configuration &amp; signals</b> (Cloud Firestore): your indicator/filter settings, favorite list, trade plans, Backscan run history, and price-alert configuration are stored in the cloud so they follow you across devices.</li>
         <li><b>Community comments</b> (per-coin discussion): if you post a comment, we store your display name, the comment content, and (if applicable) report data, in order to operate the discussion feature.</li>
         <li><b>Exported files</b> (Share Plus): when you export a Backscan result, the app only creates a temporary file in the device's local storage (system temp folder) for you to share yourself via the system share sheet. We do not collect or upload this file to any external server.</li>
       </ul>
       <p class="ml-el active-lang" data-lang="en">The app has a content moderation system and may limit or restrict accounts that violate our community guidelines.</p>
       <ul class="ml-el" data-lang="vi">
         <li><b>Thông tin tài khoản</b> (Google Sign-In &amp; Firebase Auth): địa chỉ email, tên hiển thị và ảnh đại diện khi bạn đăng nhập để tạo tài khoản và lưu cấu hình cá nhân.</li>
-        <li><b>Danh sách yêu thích</b>: danh sách các coin bạn đánh dấu yêu thích được lưu CỤC BỘ trên thiết bị, không đồng bộ qua tài khoản.</li>
-        <li><b>Cấu hình &amp; tín hiệu người dùng</b> (Cloud Firestore): các cài đặt bộ lọc chỉ báo, lịch sử chạy Backscan và cấu hình cảnh báo giá của bạn được lưu trữ trên đám mây để theo bạn giữa các thiết bị.</li>
+        <li><b>Cấu hình &amp; tín hiệu người dùng</b> (Cloud Firestore): các cài đặt bộ lọc chỉ báo, danh sách yêu thích, kế hoạch giao dịch (Plan), lịch sử chạy Backscan và cấu hình cảnh báo giá của bạn được lưu trữ trên đám mây để theo bạn giữa các thiết bị.</li>
         <li><b>Bình luận cộng đồng</b> (thảo luận theo từng coin): nếu bạn đăng bình luận, chúng tôi lưu tên hiển thị, nội dung bình luận và (nếu có) dữ liệu báo cáo, để vận hành tính năng thảo luận.</li>
         <li><b>Tệp xuất dữ liệu</b> (Share Plus): khi bạn xuất kết quả Backscan, ứng dụng chỉ tạo 1 tệp tạm thời trên bộ nhớ cục bộ của thiết bị (thư mục tạm hệ thống) để bạn tự chia sẻ qua bảng chia sẻ của hệ thống. Chúng tôi không thu thập hay tải tệp này lên bất kỳ máy chủ ngoài nào.</li>
       </ul>
       <p class="ml-el" data-lang="vi">Ứng dụng có hệ thống kiểm duyệt nội dung và có thể hạn chế/xử lý các tài khoản vi phạm quy định cộng đồng.</p>
       <ul class="ml-el" data-lang="zh">
         <li><b>账户信息</b>（Google 登录与 Firebase Auth）：当您登录以创建账户并保存个人设置时，我们会获取您的电子邮件地址、显示名称和头像。</li>
-        <li><b>收藏列表</b>：您标记为收藏的币种列表仅保存在本地设备上，不通过账户同步。</li>
-        <li><b>您的配置与信号</b>（Cloud Firestore）：您的指标/筛选设置、Backscan 运行历史和价格提醒配置会存储在云端，以便在不同设备间保持同步。</li>
+        <li><b>您的配置与信号</b>（Cloud Firestore）：您的指标/筛选设置、收藏列表、交易计划、Backscan 运行历史和价格提醒配置会存储在云端，以便在不同设备间保持同步。</li>
         <li><b>社区评论</b>（按币种讨论）：如果您发表评论，我们会存储您的显示名称、评论内容以及（如适用）举报数据，以运行讨论功能。</li>
         <li><b>导出文件</b>（Share Plus）：当您导出 Backscan 结果时，应用仅在设备本地存储（系统临时文件夹）中创建临时文件，供您通过系统分享面板自行分享。我们不会收集或将此文件上传到任何外部服务器。</li>
       </ul>
       <p class="ml-el" data-lang="zh">应用配有内容审核机制，对违反社区准则的账户可能采取限制措施。</p>
       <ul class="ml-el" data-lang="ko">
         <li><b>계정 정보</b> (Google 로그인 및 Firebase Auth): 계정을 생성하고 개인 설정을 저장하기 위해 로그인할 때 이메일 주소, 표시 이름, 프로필 사진을 수집합니다.</li>
-        <li><b>관심 코인 목록</b>: 관심 코인으로 표시한 목록은 기기에만 로컬로 저장되며, 계정을 통해 동기화되지 않습니다.</li>
-        <li><b>사용자 설정 및 신호</b> (Cloud Firestore): 지표/필터 설정, Backscan 실행 기록, 가격 알림 설정을 클라우드에 저장하여 기기 간 동기화됩니다.</li>
+        <li><b>사용자 설정 및 신호</b> (Cloud Firestore): 지표/필터 설정, 관심 코인 목록, 트레이딩 플랜, Backscan 실행 기록, 가격 알림 설정을 클라우드에 저장하여 기기 간 동기화됩니다.</li>
         <li><b>커뮤니티 댓글</b> (코인별 토론): 댓글을 작성하면 토론 기능 운영을 위해 표시 이름, 댓글 내용, (해당하는 경우) 신고 데이터를 저장합니다.</li>
         <li><b>내보낸 파일</b> (Share Plus): Backscan 결과를 내보낼 때, 앱은 기기 로컬 저장소(시스템 임시 폴더)에 임시 파일만 생성하여 시스템 공유 시트를 통해 직접 공유할 수 있도록 합니다. 이 파일을 수집하거나 외부 서버에 업로드하지 않습니다.</li>
       </ul>
       <p class="ml-el" data-lang="ko">앱에는 콘텐츠 검토 시스템이 있으며, 커뮤니티 가이드라인을 위반한 계정은 제한 조치를 받을 수 있습니다.</p>
       <ul class="ml-el" data-lang="ja">
         <li><b>アカウント情報</b>（Google サインイン＆Firebase Auth）：アカウントを作成し、個人設定を保存するためにサインインする際、メールアドレス、表示名、プロフィール写真を取得します。</li>
-        <li><b>お気に入りリスト</b>：お気に入りに登録した銘柄のリストはデバイスにローカル保存されるのみで、アカウントを通じて同期されません。</li>
-        <li><b>設定とシグナル</b>（Cloud Firestore）：指標/フィルター設定、Backscan の実行履歴、価格アラート設定はクラウドに保存され、デバイス間で同期されます。</li>
+        <li><b>設定とシグナル</b>（Cloud Firestore）：指標/フィルター設定、お気に入りリスト、トレードプラン、Backscan の実行履歴、価格アラート設定はクラウドに保存され、デバイス間で同期されます。</li>
         <li><b>コミュニティコメント</b>（銘柄ごとのディスカッション）：コメントを投稿すると、ディスカッション機能の運営のため、表示名、コメント内容、（該当する場合）通報データを保存します。</li>
         <li><b>エクスポートされたファイル</b>（Share Plus）：Backscan の結果をエクスポートする際、アプリはデバイスのローカルストレージ（システムの一時フォルダ）に一時ファイルを作成するだけで、システムの共有シートを通じてご自身で共有していただけます。このファイルを収集したり外部サーバーにアップロードしたりすることはありません。</li>
       </ul>
@@ -443,19 +438,19 @@
       <h2 class="ml-el" data-lang="ja"><span class="num">6</span>データ削除の権利</h2>
 
       <div class="ml-el active-lang" data-lang="en">
-        <p>You are always in control of your personal data. To permanently delete your account and all configuration data saved on Cloud Firestore, send a request to our support email: <span class="placeholder">[SUPPORT_EMAIL]</span> with the subject line "Data Deletion Request &ndash; Smart Money Scanner". We will process and fully delete your data within 7 business days.</p>
+        <p>You are always in control of your personal data. To permanently delete your account and all configuration data saved on Cloud Firestore, send a request to our support email: <a href="mailto:support@nekosyntax.cloud">support@nekosyntax.cloud</a> with the subject line "Data Deletion Request &ndash; Smart Money Scanner". We will process and fully delete your data within 7 business days.</p>
       </div>
       <div class="ml-el" data-lang="vi">
-        <p>Bạn có toàn quyền kiểm soát dữ liệu cá nhân của mình. Để xoá hoàn toàn tài khoản và toàn bộ dữ liệu cấu hình đã lưu trên Cloud Firestore, hãy gửi yêu cầu về email hỗ trợ: <span class="placeholder">[SUPPORT_EMAIL]</span> với tiêu đề "Yêu cầu xoá dữ liệu &ndash; Smart Money Scanner". Chúng tôi sẽ xử lý và xoá sạch dữ liệu trong vòng 7 ngày làm việc.</p>
+        <p>Bạn có toàn quyền kiểm soát dữ liệu cá nhân của mình. Để xoá hoàn toàn tài khoản và toàn bộ dữ liệu cấu hình đã lưu trên Cloud Firestore, hãy gửi yêu cầu về email hỗ trợ: <a href="mailto:support@nekosyntax.cloud">support@nekosyntax.cloud</a> với tiêu đề "Yêu cầu xoá dữ liệu &ndash; Smart Money Scanner". Chúng tôi sẽ xử lý và xoá sạch dữ liệu trong vòng 7 ngày làm việc.</p>
       </div>
       <div class="ml-el" data-lang="zh">
-        <p>您始终掌控自己的个人数据。如需永久删除您的账户以及存储在 Cloud Firestore 上的所有配置数据，请发送邮件至我们的支持邮箱：<span class="placeholder">[SUPPORT_EMAIL]</span>，邮件主题为"数据删除请求 &ndash; Smart Money Scanner"。我们将在7个工作日内处理并彻底删除您的数据。</p>
+        <p>您始终掌控自己的个人数据。如需永久删除您的账户以及存储在 Cloud Firestore 上的所有配置数据，请发送邮件至我们的支持邮箱：<a href="mailto:support@nekosyntax.cloud">support@nekosyntax.cloud</a>，邮件主题为"数据删除请求 &ndash; Smart Money Scanner"。我们将在7个工作日内处理并彻底删除您的数据。</p>
       </div>
       <div class="ml-el" data-lang="ko">
-        <p>귀하는 항상 자신의 개인정보를 통제할 수 있습니다. 계정과 Cloud Firestore에 저장된 모든 설정 데이터를 영구적으로 삭제하려면, 지원 이메일(<span class="placeholder">[SUPPORT_EMAIL]</span>)로 "데이터 삭제 요청 &ndash; Smart Money Scanner"라는 제목으로 요청을 보내주세요. 영업일 기준 7일 이내에 처리하여 데이터를 완전히 삭제해 드립니다.</p>
+        <p>귀하는 항상 자신의 개인정보를 통제할 수 있습니다. 계정과 Cloud Firestore에 저장된 모든 설정 데이터를 영구적으로 삭제하려면, 지원 이메일(<a href="mailto:support@nekosyntax.cloud">support@nekosyntax.cloud</a>)로 "데이터 삭제 요청 &ndash; Smart Money Scanner"라는 제목으로 요청을 보내주세요. 영업일 기준 7일 이내에 처리하여 데이터를 완전히 삭제해 드립니다.</p>
       </div>
       <div class="ml-el" data-lang="ja">
-        <p>お客様はご自身の個人データを常にコントロールできます。アカウントおよび Cloud Firestore に保存されているすべての設定データを完全に削除するには、サポートメール（<span class="placeholder">[SUPPORT_EMAIL]</span>）宛てに「データ削除リクエスト &ndash; Smart Money Scanner」という件名でご連絡ください。7営業日以内に処理し、データを完全に削除いたします。</p>
+        <p>お客様はご自身の個人データを常にコントロールできます。アカウントおよび Cloud Firestore に保存されているすべての設定データを完全に削除するには、サポートメール（<a href="mailto:support@nekosyntax.cloud">support@nekosyntax.cloud</a>）宛てに「データ削除リクエスト &ndash; Smart Money Scanner」という件名でご連絡ください。7営業日以内に処理し、データを完全に削除いたします。</p>
       </div>
     </section>
 
@@ -468,24 +463,24 @@
       <h2 class="ml-el" data-lang="ja"><span class="num">7</span>お問い合わせ</h2>
 
       <div class="ml-el active-lang" data-lang="en">
-        <p>Email: <span class="placeholder">[SUPPORT_EMAIL]</span><br>
-        Website: <span class="placeholder">[WEBSITE_URL]</span></p>
+        <p>Email: <a href="mailto:support@nekosyntax.cloud">support@nekosyntax.cloud</a><br>
+        Website: <a href="https://sms.nekosyntax.cloud" target="_blank" rel="noopener">https://sms.nekosyntax.cloud</a></p>
       </div>
       <div class="ml-el" data-lang="vi">
-        <p>Email: <span class="placeholder">[SUPPORT_EMAIL]</span><br>
-        Website: <span class="placeholder">[WEBSITE_URL]</span></p>
+        <p>Email: <a href="mailto:support@nekosyntax.cloud">support@nekosyntax.cloud</a><br>
+        Website: <a href="https://sms.nekosyntax.cloud" target="_blank" rel="noopener">https://sms.nekosyntax.cloud</a></p>
       </div>
       <div class="ml-el" data-lang="zh">
-        <p>电子邮箱：<span class="placeholder">[SUPPORT_EMAIL]</span><br>
-        网站：<span class="placeholder">[WEBSITE_URL]</span></p>
+        <p>电子邮箱：<a href="mailto:support@nekosyntax.cloud">support@nekosyntax.cloud</a><br>
+        网站：<a href="https://sms.nekosyntax.cloud" target="_blank" rel="noopener">https://sms.nekosyntax.cloud</a></p>
       </div>
       <div class="ml-el" data-lang="ko">
-        <p>이메일: <span class="placeholder">[SUPPORT_EMAIL]</span><br>
-        웹사이트: <span class="placeholder">[WEBSITE_URL]</span></p>
+        <p>이메일: <a href="mailto:support@nekosyntax.cloud">support@nekosyntax.cloud</a><br>
+        웹사이트: <a href="https://sms.nekosyntax.cloud" target="_blank" rel="noopener">https://sms.nekosyntax.cloud</a></p>
       </div>
       <div class="ml-el" data-lang="ja">
-        <p>メール：<span class="placeholder">[SUPPORT_EMAIL]</span><br>
-        ウェブサイト：<span class="placeholder">[WEBSITE_URL]</span></p>
+        <p>メール：<a href="mailto:support@nekosyntax.cloud">support@nekosyntax.cloud</a><br>
+        ウェブサイト：<a href="https://sms.nekosyntax.cloud" target="_blank" rel="noopener">https://sms.nekosyntax.cloud</a></p>
       </div>
     </section>
 
@@ -502,14 +497,12 @@
 <script>
   var ALL_LANGS = ['en','vi','zh','ko','ja'];
   function setLang(lang){
-    // Simplest possible logic: remove `.active-lang` from EVERY `.ml-el`
-    // currently carrying it, then add it back only to the group matching
-    // the language just selected - no if/else needed, no manual
-    // `style.display` toggling either. CSS
-    // (`.ml-el:not(.active-lang){display:none!important}`) handles the
-    // rest on its own: an element WITH `.active-lang` simply no longer
-    // matches the hide rule at all, rather than "winning" a specificity
-    // fight against `.callout`/`h2`/`.updated`.
+    // Đúng logic đơn giản nhất: bỏ `.active-lang` khỏi MỌI `.ml-el` đang có,
+    // rồi gắn lại cho ĐÚNG nhóm phần tử khớp ngôn ngữ vừa chọn - không cần
+    // if/else, không cần set `style.display` tay - CSS (`.ml-el:not(.active-lang)
+    // {display:none!important}`) tự lo phần còn lại, đúng bản chất "phần tử
+    // có class active-lang thì rule ẩn KHÔNG KHỚP nữa" chứ không phải ganh
+    // đua độ ưu tiên với `.callout`/`h2`/`.updated`.
     document.querySelectorAll('.ml-el.active-lang').forEach(function(el){
       el.classList.remove('active-lang');
     });
@@ -525,11 +518,10 @@
   (function(){
     var saved = null;
     try { saved = localStorage.getItem('smsPrivacyLang'); } catch(e){}
-    // Call setLang() right away to sync button state + localStorage - the
-    // content show/hide is already correct straight from HTML/CSS (EN
-    // ships with `.active-lang` hardcoded) regardless of this line; this
-    // line only handles the INTERACTIVE part (which button looks "active",
-    // remembering the previous choice).
+    // Gọi setLang() ngay từ đầu để đồng bộ trạng thái nút bấm + localStorage
+    // - phần ẩn/hiện nội dung đã đúng SẴN từ HTML/CSS (EN có `.active-lang`
+    // gắn cứng) dù có dòng này hay không, dòng này chỉ lo phần TƯƠNG TÁC
+    // (nút nào đang "active", nhớ lựa chọn lần trước).
     setLang(ALL_LANGS.indexOf(saved) !== -1 ? saved : 'en');
     var y = new Date().getFullYear();
     ALL_LANGS.forEach(function(l){
