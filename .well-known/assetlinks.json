@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.keg4re.smart_money_scanner",
+      "sha256_cert_fingerprints": [
+        "6b:2c:67:b5:20:97:67:17:61:50:d4:cc:86:8d:53:3a:a5:f7:31:7d:b6:04:a7:ed:bb:b5:9a:99:4a:f6:79:92",
+        "A1:2E:14:89:8D:EF:44:34:1B:88:33:4A:CC:1B:B1:C2:30:B5:71:87:BE:18:0A:79:36:2A:A7:77:E7:24:2E:77"
+      ]
+    }
+  }
+]

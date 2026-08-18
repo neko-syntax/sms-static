@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Money Scanner</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background: #0E1A14;
+    color: #E8F5E9;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    text-align: center; padding: 24px;
+  }
+  .box { max-width: 380px; }
+  h1 { font-size: 20px; margin: 0 0 8px; }
+  p { font-size: 14px; line-height: 1.6; color: #A5D6A7; margin: 0 0 20px; }
+  a.btn {
+    display: inline-block; padding: 12px 22px; border-radius: 10px;
+    background: #00E676; color: #06281A; font-weight: 700;
+    text-decoration: none; font-size: 15px;
+  }
+  .muted { margin-top: 14px; font-size: 12px; color: #6d8c78; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <h1>Smart Money Scanner</h1>
+    <p id="msg">Opening the app&hellip;</p>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.keg4re.smart_money_scanner">Get the app</a>
+    <div class="muted" id="hint"></div>
+  </div>
+
+<script>
+(function () {
+  var PACKAGE  = 'com.keg4re.smart_money_scanner';
+  var PLAY_URL = 'https://play.google.com/store/apps/details?id=' + PACKAGE;
+  var path     = location.pathname + location.search;
+  var isAndroid = /android/i.test(navigator.userAgent || '');
+
+  if (!isAndroid) {
+    document.getElementById('msg').textContent =
+      'Open this link on an Android device with the app installed to view it in the app.';
+    return;
+  }
+
+  var intentUrl =
+    'intent://' + location.host + path +
+    '#Intent;scheme=https;package=' + PACKAGE +
+    ';S.browser_fallback_url=' + encodeURIComponent(PLAY_URL) +
+    ';end';
+
+  setTimeout(function () {
+    document.getElementById('msg').textContent =
+      'App not installed? Install it to open this link in the app.';
+    document.getElementById('hint').textContent =
+      'If you are inside an in-app browser (Facebook, Zalo, etc.), choose "Open in browser".';
+  }, 2000);
+
+  location.href = intentUrl;
+})();
+</script>
+</body>
+</html>
