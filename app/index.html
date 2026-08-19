@@ -14,22 +14,27 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     text-align: center; padding: 24px;
   }
-  .box { max-width: 380px; }
+  .box { max-width: 380px; width: 100%; }
   h1 { font-size: 20px; margin: 0 0 8px; }
   p { font-size: 14px; line-height: 1.6; color: #A5D6A7; margin: 0 0 20px; }
-  a.btn {
-    display: inline-block; padding: 12px 22px; border-radius: 10px;
-    background: #00E676; color: #06281A; font-weight: 700;
-    text-decoration: none; font-size: 15px;
+  a.btn, button.btn {
+    display: block; width: 100%; box-sizing: border-box;
+    padding: 14px 22px; border-radius: 10px; border: 0;
+    font-weight: 700; font-size: 15px; text-decoration: none;
+    cursor: pointer; margin-bottom: 10px; font-family: inherit;
   }
-  .muted { margin-top: 14px; font-size: 12px; color: #6d8c78; }
+  .primary { background: #00E676; color: #06281A; }
+  .secondary { background: transparent; color: #A5D6A7; border: 1px solid #2E5C46; }
+  .muted { margin-top: 14px; font-size: 12px; color: #6d8c78; line-height: 1.5; }
 </style>
 </head>
 <body>
   <div class="box">
     <h1>Smart Money Scanner</h1>
-    <p id="msg">Opening the app&hellip;</p>
-    <a class="btn" href="https://play.google.com/store/apps/details?id=com.keg4re.smart_money_scanner">Get the app</a>
+    <p id="msg">Open this link in the app.</p>
+    <button class="btn primary" id="openApp">Open in app</button>
+    <a class="btn secondary"
+       href="https://play.google.com/store/apps/details?id=com.keg4re.smart_money_scanner">Get the app</a>
     <div class="muted" id="hint"></div>
   </div>
 
@@ -40,9 +45,13 @@
   var path     = location.pathname + location.search;
   var isAndroid = /android/i.test(navigator.userAgent || '');
 
+  var msg = document.getElementById('msg');
+  var openBtn = document.getElementById('openApp');
+  var hint = document.getElementById('hint');
+
   if (!isAndroid) {
-    document.getElementById('msg').textContent =
-      'Open this link on an Android device with the app installed to view it in the app.';
+    msg.textContent = 'Open this link on an Android device with the app installed to view it in the app.';
+    openBtn.style.display = 'none';
     return;
   }
 
@@ -52,14 +61,12 @@
     ';S.browser_fallback_url=' + encodeURIComponent(PLAY_URL) +
     ';end';
 
-  setTimeout(function () {
-    document.getElementById('msg').textContent =
-      'App not installed? Install it to open this link in the app.';
-    document.getElementById('hint').textContent =
-      'If you are inside an in-app browser (Facebook, Zalo, etc.), choose "Open in browser".';
-  }, 2000);
+  openBtn.addEventListener('click', function () {
+    location.href = intentUrl;
+  });
 
-  location.href = intentUrl;
+  hint.textContent =
+    'If nothing happens, the app may not be installed yet. In an in-app browser (Facebook, Zalo, etc.), choose "Open in browser" first.';
 })();
 </script>
 </body>
