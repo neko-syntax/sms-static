@@ -1,11 +1,19 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "com.keg4re.smart_money_scanner",
       "sha256_cert_fingerprints": [
         "6b:2c:67:b5:20:97:67:17:61:50:d4:cc:86:8d:53:3a:a5:f7:31:7d:b6:04:a7:ed:bb:b5:9a:99:4a:f6:79:92",
+        "A1:2E:14:89:8D:EF:44:34:1B:88:33:4A:CC:1B:B1:C2:30:B5:71:87:BE:18:0A:79:36:2A:A7:77:E7:24:2E:77",
+        "6B:2C:67:B5:20:97:67:17:61:50:D4:CC:86:8D:53:3A:A5:F7:31:7D:B6:04:A7:ED:BB:B5:9A:99:4A:F6:79:92",
+        "6A:BF:6C:9E:6A:36:98:4A:B6:12:68:70:21:96:03:5E:5F:76:D1:6F:B2:9D:2A:03:10:A5:45:8E:41:7A:DB:C2",
+        "E5:8D:67:B4:AC:ED:52:DA:03:87:EC:C4:9F:B2:B9:2A:F9:49:3F:A5:73:98:6E:9B:50:BD:CC:B1:CA:85:C0:F5",
+        
         "A1:2E:14:89:8D:EF:44:34:1B:88:33:4A:CC:1B:B1:C2:30:B5:71:87:BE:18:0A:79:36:2A:A7:77:E7:24:2E:77"
       ]
     }
