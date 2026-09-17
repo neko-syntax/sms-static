@@ -120,16 +120,6 @@
     text-align:center;color:var(--ink-soft);font-size:12.5px;
     padding:20px 20px 40px;
   }
-
-  /* Ẩn/hiện theo ngôn ngữ - CHỈ 1 quy tắc DUY NHẤT, không if/else, không
-     phân biệt có JS hay không:
-     - Phần tử KHÔNG có `.active-lang` -> ẩn (selector `:not()` khiến quy
-       tắc TỰ ĐỘNG KHÔNG KHỚP với phần tử ĐANG active - không phải "thắng"
-       nhờ độ ưu tiên CSS, nên không còn ganh đua với `.callout`/`h2`/
-       `.updated`... của chính element đó nữa).
-     - EN được gắn sẵn `.active-lang` NGAY TRONG HTML (không cần JS) -> mặc
-       định hiện đúng tiếng Anh kể cả khi JS tắt/lỗi, không thiếu/thừa nội
-       dung. */
   .ml-el:not(.active-lang){display:none !important;}
 
   @media (max-width:520px){
@@ -140,7 +130,6 @@
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3808755549125207"
      crossorigin="anonymous"></script>
-</head>
 </head>
 <body>
 
@@ -510,12 +499,6 @@
 <script>
   var ALL_LANGS = ['en','vi','zh','ko','ja'];
   function setLang(lang){
-    // Đúng logic đơn giản nhất: bỏ `.active-lang` khỏi MỌI `.ml-el` đang có,
-    // rồi gắn lại cho ĐÚNG nhóm phần tử khớp ngôn ngữ vừa chọn - không cần
-    // if/else, không cần set `style.display` tay - CSS (`.ml-el:not(.active-lang)
-    // {display:none!important}`) tự lo phần còn lại, đúng bản chất "phần tử
-    // có class active-lang thì rule ẩn KHÔNG KHỚP nữa" chứ không phải ganh
-    // đua độ ưu tiên với `.callout`/`h2`/`.updated`.
     document.querySelectorAll('.ml-el.active-lang').forEach(function(el){
       el.classList.remove('active-lang');
     });
@@ -531,10 +514,6 @@
   (function(){
     var saved = null;
     try { saved = localStorage.getItem('smsPrivacyLang'); } catch(e){}
-    // Gọi setLang() ngay từ đầu để đồng bộ trạng thái nút bấm + localStorage
-    // - phần ẩn/hiện nội dung đã đúng SẴN từ HTML/CSS (EN có `.active-lang`
-    // gắn cứng) dù có dòng này hay không, dòng này chỉ lo phần TƯƠNG TÁC
-    // (nút nào đang "active", nhớ lựa chọn lần trước).
     setLang(ALL_LANGS.indexOf(saved) !== -1 ? saved : 'en');
     var y = new Date().getFullYear();
     ALL_LANGS.forEach(function(l){
